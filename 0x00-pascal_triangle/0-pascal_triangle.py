@@ -1,31 +1,51 @@
 #!/usr/bin/python3
-"""returns a pascal triangle"""
+
+"""
+Pascal's Triangle
+"""
 
 
 def pascal_triangle(n):
-    """
-    returns a list of integers in a pascal triangle format
-    """
+    """Print Pascal's Triangle
 
-    if n <= 0:
-        # return empty list
-        return []
-    pascal = [[1]]
-    if n == 1:
-        return pascal
+    Args:
+        n (int): Size of the pascal triangle
+    """
+    res = []
+    if (n <= 0):
+        return res
+    else:
+        for x in range(n+1):
+            temp = []
+            # first element is always 1
+            c = 1
+            for y in range(1, x+1):
+                # first value in a line is always 1
+                temp.append(c)
+                # using Binomial Coefficient
+                c = c * (x - y) // y
+            if (len(temp)):
+                res.append(temp)
+    return res
 
-    for i in range(1, n):
-        left = -1
-        right = 0
-        in_pas = []
-        for j in range(i + 1):
-            num = 0 
-            if left > -1:
-                num += pascal[i - 1][left]
-            if right < i:
-                num += pascal[i - 1][right]
-            left += 1
-            right += 1
-            in_pas.append(num)
-        pascal.append(in_pas)
-    return pascal
+
+# def pascal_triangle2(n):
+#     """pascal_triangle
+
+#     Args:
+#         n (int): Size of the pascal triangle
+#     """
+
+#     for i in range(1, n+1):
+#         for j in range(n-i):
+#             print(' ', end='')
+#         # first element is always 1
+#         c = 1
+#         for j in range(1, i+1):
+#             # first value in a line is always 1
+#             print(c, ' ', sep='', end='')
+#             # using Binomial Coefficient
+#             c = c * (i - j) // j
+#         print()
+
+# pascal_triangle2(5)
